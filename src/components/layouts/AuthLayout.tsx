@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import { Box, Container, Heading, Text, VStack } from "@chakra-ui/react";
 
 interface AuthLayoutProps {
   children: ReactNode;
@@ -13,20 +12,14 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
   subtitle,
 }) => {
   return (
-    <Container maxW="md" py={12}>
-      <Box boxShadow="lg" p={8} rounded="md" bg="white">
-        <VStack gap={6}>
-          <Heading textAlign="center" size="xl">
-            {title}
-          </Heading>
-          {subtitle && (
-            <Text textAlign="center" color="gray.600">
-              {subtitle}
-            </Text>
-          )}
+    <div className="container mx-auto max-w-md py-12 px-4">
+      <div className="bg-white shadow-lg rounded-md p-8">
+        <div className="space-y-6">
+          <h1 className="text-center text-3xl font-bold">{title}</h1>
+          {subtitle && <p className="text-center text-gray-600">{subtitle}</p>}
           {children}
-        </VStack>
-      </Box>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 };

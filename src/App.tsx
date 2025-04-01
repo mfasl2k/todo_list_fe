@@ -10,7 +10,7 @@ const App: React.FC = () => {
       <BrowserRouter>
         <AuthProvider>
           <AppRoutes />
-          <Toaster position="top-right" />
+          <Toaster position="top-center" />
         </AuthProvider>
       </BrowserRouter>
     </>

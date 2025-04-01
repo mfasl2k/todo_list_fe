@@ -29,7 +29,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (token) {
         try {
           const response = await AuthService.getCurrentUser();
-          setUser(response.user);
+          console.log("User data:", response);
+          if (response) {
+            setUser({
+              id: response.id,
+              username: response.username,
+              email: response.email,
+            });
+          }
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
           localStorage.removeItem("token");
@@ -44,7 +51,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = async (credentials: LoginCredentials) => {
     const response = await AuthService.login(credentials);
     localStorage.setItem("token", response.token);
-    setUser(response.user);
+
+    setUser({
+      id: response.id,
+      username: response.username,
+      email: response.email,
+    });
+    return response;
   };
 
   const register = async (credentials: RegisterCredentials) => {
@@ -64,6 +77,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     register,
     logout,
   };
+  console.log("AuthContext value:", value);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

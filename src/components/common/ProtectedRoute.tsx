@@ -1,16 +1,15 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import { Spinner, Center } from "@chakra-ui/react";
 
 export const ProtectedRoute: React.FC = () => {
   const { isAuthenticated, isLoading } = useAuth();
 
   if (isLoading) {
     return (
-      <Center h="100vh">
-        <Spinner size="xl" />
-      </Center>
+      <div className="h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500"></div>
+      </div>
     );
   }
 

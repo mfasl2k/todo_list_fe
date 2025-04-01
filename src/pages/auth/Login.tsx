@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Stack, Text, Flex } from "@chakra-ui/react";
 import toast from "react-hot-toast";
 import { useForm } from "../../hooks/useForm";
 import { useAuth } from "../../hooks/useAuth";
@@ -18,11 +17,14 @@ const Login: React.FC = () => {
     try {
       await login(values);
       toast.success("Login successful");
-      navigate("/todos");
+      navigate("/tasks");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
+      console.error("Login error:", error);
       toast.error(
-        error.response?.data?.non_field_errors?.[0] || "Invalid credentials"
+        error.response?.data?.non_field_errors?.[0] ||
+          error.message ||
+          "Invalid credentials"
       );
     }
   };
@@ -36,47 +38,48 @@ const Login: React.FC = () => {
 
   return (
     <AuthLayout title="Sign In" subtitle="Access your todo list">
-      <form onSubmit={handleSubmit}>
-        <Stack gap={4} width="100%">
-          <FormField
-            label="Username"
-            name="username"
-            value={values.username}
-            onChange={handleChange}
-            placeholder="Enter your username"
-            error={errors.username}
-          />
+      <form onSubmit={handleSubmit} className="space-y-4 w-full">
+        <FormField
+          label="Username"
+          name="username"
+          value={values.username}
+          onChange={handleChange}
+          placeholder="Enter your username"
+          error={errors.username}
+        />
 
-          <FormField
-            label="Password"
-            name="password"
-            type="password"
-            value={values.password}
-            onChange={handleChange}
-            placeholder="Enter your password"
-            error={errors.password}
-          />
+        <FormField
+          label="Password"
+          name="password"
+          type="password"
+          value={values.password}
+          onChange={handleChange}
+          placeholder="Enter your password"
+          error={errors.password}
+        />
 
-          <Button
-            colorScheme="blue"
-            size="lg"
-            type="submit"
-            loading={isSubmitting}
-            loadingText="Signing in"
-            w="100%"
-            mt={4}
+        <button
+          type="submit"
+          className={`
+            w-full py-2 px-4 bg-blue-500 text-white rounded-md 
+            hover:bg-blue-600 transition 
+            ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}
+          `}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Signing in..." : "Sign In"}
+        </button>
+
+        <div className="flex justify-center mt-4">
+          <span className="mr-2 text-gray-600">Don't have an account?</span>
+          <Link
+            to="/register"
+            className="text-blue-500 hover:text-blue-600 font-medium"
           >
-            Sign In
-          </Button>
-        </Stack>
+            Register
+          </Link>
+        </div>
       </form>
-
-      <Flex justify="center" mt={4}>
-        <Text mr={2}>Don't have an account?</Text>
-        <Link to="/register" color="blue.500">
-          Register
-        </Link>
-      </Flex>
     </AuthLayout>
   );
 };
