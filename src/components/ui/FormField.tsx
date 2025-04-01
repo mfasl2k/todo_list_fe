@@ -1,7 +1,6 @@
-import React from "react";
-import { Box, Input, InputProps, Text } from "@chakra-ui/react";
+import React, { InputHTMLAttributes } from "react";
 
-interface FormFieldProps extends InputProps {
+interface FormFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   name: string;
   error?: string;
@@ -14,19 +13,24 @@ export const FormField: React.FC<FormFieldProps> = ({
   ...rest
 }) => {
   return (
-    <Box mb={4}>
-      <label htmlFor={name}>{label}</label>
-      <Input
+    <div className="mb-4">
+      <label
+        htmlFor={name}
+        className="block text-sm font-medium text-gray-700 mb-1"
+      >
+        {label}
+      </label>
+      <input
         id={name}
         name={name}
-        borderColor={error ? "red.300" : undefined}
+        className={`
+          w-full px-3 py-2 border rounded-md 
+          ${error ? "border-red-500" : "border-gray-300"}
+          focus:outline-none focus:ring-2 focus:ring-blue-500
+        `}
         {...rest}
       />
-      {error && (
-        <Text color="red.500" fontSize="sm" mt={1}>
-          {error}
-        </Text>
-      )}
-    </Box>
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+    </div>
   );
 };

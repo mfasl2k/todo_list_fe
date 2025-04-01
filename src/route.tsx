@@ -1,11 +1,10 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-// import { ProtectedRoute } from "./components/common/ProtectedRoute";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-// import TodoList from "./pages/todos/TodoList";
-// import TodoDetail from "./pages/todos/TodoDetail";
 import NotFound from "./pages/NotFound";
+import { ProtectedRoute } from "./components/common/ProtectedRoute";
+import TasksPage from "./pages/TaskPage";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -15,10 +14,11 @@ const AppRoutes: React.FC = () => {
       <Route path="/register" element={<Register />} />
 
       {/* Protected Routes */}
-      {/* <Route element={<ProtectedRoute />}>
-        <Route path="/todos" element={<TodoList />} />
-        <Route path="/todos/:id" element={<TodoDetail />} />
-      </Route> */}
+      <Route element={<ProtectedRoute />}>
+        <Route path="/tasks" element={<TasksPage />} />
+        {/* Add more task-related routes here if needed */}
+        {/* <Route path="/tasks/:id" element={<TaskDetail />} /> */}
+      </Route>
 
       {/* Redirects */}
       <Route path="/" element={<Navigate to="/login" replace />} />

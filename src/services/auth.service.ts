@@ -8,7 +8,7 @@ import {
 export const AuthService = {
   login: async (credentials: LoginCredentials): Promise<AuthResponse> => {
     const response = await api.post<AuthResponse>(
-      "/api-token-auth/",
+      "/api/auth/login/",
       credentials
     );
     return response.data;

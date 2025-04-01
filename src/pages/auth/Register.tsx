@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Stack, Text, Flex } from "@chakra-ui/react";
 import toast from "react-hot-toast";
 import { useForm } from "../../hooks/useForm";
 import { useAuth } from "../../hooks/useAuth";
@@ -64,67 +63,68 @@ const Register: React.FC = () => {
       title="Create Account"
       subtitle="Sign up to start using our todo list app"
     >
-      <form onSubmit={handleSubmit}>
-        <Stack gap={4} width="100%">
-          <FormField
-            label="Username"
-            name="username"
-            value={values.username}
-            onChange={handleChange}
-            placeholder="Choose a username"
-            error={errors.username}
-          />
+      <form onSubmit={handleSubmit} className="space-y-4 w-full">
+        <FormField
+          label="Username"
+          name="username"
+          value={values.username}
+          onChange={handleChange}
+          placeholder="Choose a username"
+          error={errors.username}
+        />
 
-          <FormField
-            label="Email"
-            name="email"
-            type="email"
-            value={values.email}
-            onChange={handleChange}
-            placeholder="Enter your email"
-            error={errors.email}
-          />
+        <FormField
+          label="Email"
+          name="email"
+          type="email"
+          value={values.email}
+          onChange={handleChange}
+          placeholder="Enter your email"
+          error={errors.email}
+        />
 
-          <FormField
-            label="Password"
-            name="password"
-            type="password"
-            value={values.password}
-            onChange={handleChange}
-            placeholder="Create a password"
-            error={errors.password}
-          />
+        <FormField
+          label="Password"
+          name="password"
+          type="password"
+          value={values.password}
+          onChange={handleChange}
+          placeholder="Create a password"
+          error={errors.password}
+        />
 
-          <FormField
-            label="Confirm Password"
-            name="password2"
-            type="password"
-            value={values.password2}
-            onChange={handleChange}
-            placeholder="Confirm your password"
-            error={errors.passwordConfirmation}
-          />
+        <FormField
+          label="Confirm Password"
+          name="password2"
+          type="password"
+          value={values.password2}
+          onChange={handleChange}
+          placeholder="Confirm your password"
+          error={errors.passwordConfirmation}
+        />
 
-          <Button
-            colorScheme="blue"
-            size="lg"
-            type="submit"
-            loading={isSubmitting}
-            loadingText="Creating account"
-            w="100%"
-            mt={4}
+        <button
+          type="submit"
+          className={`
+            w-full py-2 px-4 bg-blue-500 text-white rounded-md 
+            hover:bg-blue-600 transition 
+            ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}
+          `}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Creating account..." : "Sign Up"}
+        </button>
+
+        <div className="flex justify-center mt-4">
+          <span className="mr-2 text-gray-600">Already have an account?</span>
+          <Link
+            to="/login"
+            className="text-blue-500 hover:text-blue-600 font-medium"
           >
-            Sign Up
-          </Button>
-        </Stack>
+            Sign In
+          </Link>
+        </div>
       </form>
-
-      <Flex justify="center" mt={4}>
-        <Text mr={2}>Already have an account?</Text>
-        <Link to="/login" color="blue.500">
-          Sign In
-        </Link>
-      </Flex>
     </AuthLayout>
   );
 };

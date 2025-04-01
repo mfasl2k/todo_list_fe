@@ -16,16 +16,15 @@ export interface RegisterCredentials {
   password2: string;
 }
 
-export interface AuthResponse {
+export interface AuthResponse extends User {
   token: string;
-  user: User;
 }
 
 export interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (credentials: LoginCredentials) => Promise<void>;
+  login: (credentials: LoginCredentials) => Promise<User>;
   register: (credentials: RegisterCredentials) => Promise<void>;
   logout: () => void;
 }
