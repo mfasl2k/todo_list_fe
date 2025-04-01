@@ -29,7 +29,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (token) {
         try {
           const response = await AuthService.getCurrentUser();
-          console.log("User data:", response);
           if (response) {
             setUser({
               id: response.id,
@@ -77,7 +76,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     register,
     logout,
   };
-  console.log("AuthContext value:", value);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
